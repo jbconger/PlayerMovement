@@ -4,6 +4,7 @@ public class MovingState : GroundedState
 {
 	protected bool jump;
 	protected bool dash;
+	protected bool crouch;
 
     public MovingState(PlayerController player) : base(player)
 	{
@@ -15,6 +16,7 @@ public class MovingState : GroundedState
 		base.Enter();
 		jump = false;
 		dash = false;
+		crouch = false;
 	}
 
 	public override void Exit()
@@ -29,6 +31,8 @@ public class MovingState : GroundedState
 			jump = true;
 		else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftAlt))
 			dash = true;
+		else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+			crouch = true;
 	}
 
 	public override void StateUpdate()
@@ -44,6 +48,8 @@ public class MovingState : GroundedState
 		}
 		else if (dash)
 			player.stateMachine.ChangeState(player.dashState);
+		else if (crouch)
+			player.stateMachine.ChangeState(player.crouchState);
 	}
 
 	private void Moving()
@@ -69,5 +75,6 @@ public class MovingState : GroundedState
 		player.rb2D.velocity = Vector3.MoveTowards(player.rb2D.velocity, velocity, player.moveLerpSpeed * Time.deltaTime);
 
 		// set walking animation
+		player.anim.SetBool("Move", inputs.RawX != 0 && isGrounded);
 	}
 }

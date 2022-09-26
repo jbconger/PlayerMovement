@@ -38,12 +38,15 @@ public class GroundedState : PlayerState
 		Debug.Log(grounded);
 		if (!isGrounded && grounded)
 		{
-			isGrounded = true; 
-			Debug.Log("Grounded: " + isGrounded);
+			isGrounded = true;
+			player.anim.SetBool("Grounded", true);
+			player.anim.SetBool("Jump", false);
+			player.playerAudio.PlayGroundSound();
 		}
 		else if (isGrounded && !grounded)
 		{
 			isGrounded = false;
+			player.anim.SetBool("Grounded", false);
 		}
 	}
 }

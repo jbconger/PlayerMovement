@@ -64,6 +64,5 @@ public class PlayerState
     {
         if (player.rb2D.velocity.y < player.jumpVelocityFalloff || player.rb2D.velocity.y > 0 && (!Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Z)))
             player.rb2D.velocity += player.fallMultiplier * Physics.gravity.y * Vector2.up * Time.deltaTime;
-        // check velocity for jump anim
     }
 }

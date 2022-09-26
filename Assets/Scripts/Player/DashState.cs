@@ -14,12 +14,14 @@ public class DashState : PlayerState
 	{
 		base.Enter();
 		base.HandleInput();
+		player.anim.SetBool("Dash", true);
 		Dash();
 	}
 
 	public override void Exit()
 	{
 		base.Exit();
+		player.anim.SetBool("Dash", false);
 	}
 
 	public override void HandleInput()
@@ -55,5 +57,7 @@ public class DashState : PlayerState
 
 		timeStartedDash = Time.time;
 		player.rb2D.gravityScale = 0;
+
+		player.playerAudio.PlayDashSound();
 	}
 }
