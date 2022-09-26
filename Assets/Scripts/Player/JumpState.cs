@@ -11,13 +11,13 @@ public class JumpState : MovingState
 	{
 		base.Enter();
 		dash = false;
-		isGrounded = false;
 		Jump();
 	}
 
 	public override void Exit()
 	{
 		base.Exit();
+		player.anim.SetBool("Jump", false);
 	}
 
 	public override void HandleInput()
@@ -29,11 +29,8 @@ public class JumpState : MovingState
 	{
 		base.StateUpdate();
 
-		if (isGrounded)
-		{ 
+		if (player.groundedState.isGrounded)
 			player.stateMachine.ChangeState(player.movingState);
-			player.anim.SetBool("Jump", false);
-		}
 		else if (dash)
 			player.stateMachine.ChangeState(player.dashState);
 	}

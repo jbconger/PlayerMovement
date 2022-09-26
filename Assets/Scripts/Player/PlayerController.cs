@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
 	// States
 	[HideInInspector] public PlayerStateMachine stateMachine;
+	[HideInInspector] public GroundedState groundedState;
 	[HideInInspector] public MovingState movingState;
 	[HideInInspector] public JumpState jumpState;
 	[HideInInspector] public DashState dashState;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
 		// create states
 		stateMachine = new PlayerStateMachine();
 
+		groundedState = new GroundedState(this);
 		movingState = new MovingState(this);
 		jumpState = new JumpState(this);
 		dashState = new DashState(this);
@@ -71,6 +73,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+		groundedState.HandleInput();
+		groundedState.StateUpdate();
+
 		stateMachine.currentState.HandleInput();
 		stateMachine.currentState.StateUpdate();
     }

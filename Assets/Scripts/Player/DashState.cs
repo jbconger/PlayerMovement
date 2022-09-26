@@ -50,10 +50,10 @@ public class DashState : PlayerState
 
 	private void Dash()
 	{
-		dashDirection = new Vector3(inputs.RawX, inputs.RawY).normalized;
+		dashDirection = new Vector3(player.groundedState.inputs.RawX, player.groundedState.inputs.RawY).normalized;
 
 		if (dashDirection == Vector3.zero)
-			dashDirection = isFacingLeft ? Vector3.left : Vector3.right;
+			dashDirection = player.groundedState.isFacingLeft ? Vector3.left : Vector3.right;
 
 		timeStartedDash = Time.time;
 		player.rb2D.gravityScale = 0;
