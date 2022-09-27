@@ -42,6 +42,9 @@ public class MovingState : PlayerState
 
 		Moving();
 
+		if (player.rb2D.velocity.y < -0.2)
+			player.anim.SetBool("Fall", true);
+
 		if (jump)
 			player.stateMachine.ChangeState(player.jumpState);
 		else if (dash)
